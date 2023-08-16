@@ -1,0 +1,28 @@
+name: wemulate
+
+topology:
+  kinds:
+    linux:
+      image: ghcr.io/hellt/network-multitool
+  nodes:
+    client1:
+      kind: linux
+      exec:
+        - ip address add 192.168.0.0/31 dev eth1
+        - ip address add 192.168.1.0/31 dev eth2
+    client2:
+      kind: linux
+      exec:
+        - ip address add 192.168.0.1/31 dev eth1
+        - ip address add 192.168.1.1/31 dev eth2
+    wemulate:
+      kind: linux
+      image: ghcr.io/wemulate/wemulate-container
+      ports:
+        - "80:80"
+
+  links:
+    - endpoints: ["client1:eth1", "wemulate:eth1"]
+    - endpoints: ["client2:eth1", "wemulate:eth2"]
+    - endpoints: ["client1:eth2", "wemulate:eth3"]
+    - endpoints: ["client2:eth2", "wemulate:eth4"]
