@@ -2,6 +2,7 @@
 
 This is a simple setup for Containerlab setup to try out the WEmulate container.
 
+![Topology](img/topology.png)
 
 ## Start
 
